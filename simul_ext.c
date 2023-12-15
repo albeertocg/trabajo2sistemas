@@ -28,8 +28,34 @@ typedef struct {
     unsigned short int dir_inodo;
 } EXT_ENTRADA_DIR;
 
+void cargarDatos();
+void mostrarPrompt();
+void procesarComando(char *comando);
+void listarDirectorio();
+void mostrarContenidoFichero(char *Fichero);
+
 int main() {
 	
 	
+	return 0;
+}
+
+void cargarDatos(){
+	
+}
+
+void mostrarPrompt(){
+	
+}
+
+void procesarComando(char *comando){
+	
+}
+
+void listarDirectorio(){
+	
+}
+
+void mostrarContenidoFichero(char *Fichero){
 	
 }
