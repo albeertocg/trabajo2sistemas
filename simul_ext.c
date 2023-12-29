@@ -112,7 +112,24 @@ void procesarComando(char *comando){
 }
 
 void listarDirectorio(){
-	
+	printf("Contenido detallado del directorio:\n");
+
+    for (int i = 0; i < MAX_BLOQUES_PARTICION; i++) {
+        if (directorio[i].dir_inodo != 0xFFFF && directorio[i].dir_nfich[0] != '\0') {
+            if (directorio[i].dir_inodo < MAX_INODOS) {  // Verificar límites de inodos
+                printf("%-20s\ttamaño:%-15u\tinodo:%-5hu\tbloques:", directorio[i].dir_nfich,
+                       inodos[directorio[i].dir_inodo].size_fichero, directorio[i].dir_inodo);
+
+                // Mostrar bloques ocupados por el fichero
+                for (int j = 0; j < MAX_NUMS_BLOQUE_INODO; j++) {
+                    if (inodos[directorio[i].dir_inodo].i_nbloque[j] != 0xFFFF) {
+                        printf(" %hu", inodos[directorio[i].dir_inodo].i_nbloque[j]);
+                    }
+                }
+                printf("\n");
+            } 
+        }
+    }
 }
 
 void mostrarContenidoFichero(char *Fichero){
