@@ -51,7 +51,12 @@ int main() {
 }
 
 void cargarDatos(){
-	
+	FILE *particion = fopen(PARTICION_FILE, "rb");
+
+    if (particion == NULL) {
+        perror("Error al abrir el archivo particion.bin");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void mostrarPrompt(){
