@@ -82,6 +82,17 @@ void mostrarPrompt(){
 void procesarComando(char *comando){
 	    char *token = strtok(comando, " ");
 
+	if (token != NULL) {
+		if (strcmp(token, "info") == 0) {
+			// Comando info
+			printf("Información del superbloque:\n");
+			printf("bloque %d Bytes\n", superbloque.s_block_size);
+			printf("inodos particion = %u\n", superbloque.s_inodes_count);
+			printf("inodos libres = %u\n", superbloque.s_free_inodes_count);
+			printf("bloques particion = %u\n", superbloque.s_blocks_count);
+			printf("bloques libres = %u\n", superbloque.s_free_blocks_count);
+			printf("primer bloque de datos = %u\n", superbloque.s_first_data_block);
+	}
 }
 
 void listarDirectorio(){
