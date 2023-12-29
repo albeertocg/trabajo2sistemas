@@ -185,5 +185,29 @@ void mostrarContenidoFichero(char *Fichero){
 }
 
 void renameFichero(char *nombreActual, char *nuevoNombre) {
+    int i, encontrado = 0;
 
+    // Buscar el inodo del fichero actual
+    for (i = 0; i < MAX_BLOQUES_PARTICION; i++) {
+        if (strcmp(directorio[i].dir_nfich, nombreActual) == 0) {
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if (encontrado) {
+        // Verificar que el nuevo nombre no exista
+        for (int j = 0; j < MAX_BLOQUES_PARTICION; j++) {
+            if (strcmp(directorio[j].dir_nfich, nuevoNombre) == 0) {
+                printf("Error: El nombre nuevo ya existe. Cambio de nombre cancelado.\n");
+                return;
+            }
+        }
+
+        // Cambiar el nombre del fichero
+        strcpy(directorio[i].dir_nfich, nuevoNombre);
+        printf("Nombre cambiado de %s a %s.\n", nombreActual, nuevoNombre);
+    } else {
+        printf("Error: El archivo %s no se encuentra en el directorio.\n", nombreActual);
+    }
 }
