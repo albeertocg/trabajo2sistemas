@@ -80,7 +80,8 @@ void mostrarPrompt(){
 }
 
 void procesarComando(char *comando){
-	
+	    char *token = strtok(comando, " ");
+
 }
 
 void listarDirectorio(){
