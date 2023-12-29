@@ -58,6 +58,20 @@ void cargarDatos(){
         exit(EXIT_FAILURE);
     }
 	
+	// Leer superbloque
+    fseek(particion, 0, SEEK_SET);
+    fread(&superbloque, sizeof(EXT_SIMPLE_SUPERBLOCK), 1, particion);
+
+    // Leer bytemaps
+    fread(&bytemaps, sizeof(EXT_BYTE_MAPS), 1, particion);
+
+    // Leer inodos
+    fseek(particion, 3 * SIZE_BLOQUE, SEEK_SET);
+    fread(&inodos, sizeof(EXT_SIMPLE_INODE), MAX_INODOS, particion);
+
+    // Leer directorio
+    fread(&directorio, SIZE_ENTRADA_DIR, MAX_BLOQUES_PARTICION, particion);
+	
 	    fclose(particion);
 }
 
