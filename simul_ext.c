@@ -34,6 +34,8 @@ void procesarComando(char *comando);
 void listarDirectorio();
 void mostrarContenidoFichero(char *Fichero);
 
+void renameFichero(char *nombreActual, char *nuevoNombre);
+
 int main() {
 	cargarDatos();
 
@@ -134,4 +136,8 @@ void listarDirectorio(){
 
 void mostrarContenidoFichero(char *Fichero){
 	
+}
+
+void renameFichero(char *nombreActual, char *nuevoNombre) {
+
 }
