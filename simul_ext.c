@@ -81,46 +81,82 @@ void mostrarPrompt(){
 		printf(">> ");
 }
 
-void procesarComando(char *comando){
-	    char *token = strtok(comando, " ");
+void procesarComando(char *comando) {
+    char *token = strtok(comando, " ");
 
-	if (token != NULL) {
-		if (strcmp(token, "info") == 0) {
-			// Comando info
-			printf("Información del superbloque:\n");
-			printf("bloque %d Bytes\n", superbloque.s_block_size);
-			printf("inodos particion = %u\n", superbloque.s_inodes_count);
-			printf("inodos libres = %u\n", superbloque.s_free_inodes_count);
-			printf("bloques particion = %u\n", superbloque.s_blocks_count);
-			printf("bloques libres = %u\n", superbloque.s_free_blocks_count);
-			printf("primer bloque de datos = %u\n", superbloque.s_first_data_block);
+    if (token != NULL) {
+        if (strcmp(token, "listar") == 0) {
+            listarDirectorio();
+        } else if (strcmp(token, "mostrar") == 0) {
+            token = strtok(NULL, " ");
+            if (token != NULL) {
+                mostrarContenidoFichero(token);
+            } else {
+                printf("Error: El comando mostrar requiere un nombre de archivo.\n");
+            }
+        } else if (strcmp(token, "info") == 0) {
+            printf("Información del superbloque:\n");
+            printf("bloque %d Bytes\n", superbloque.s_block_size);
+            printf("inodos particion = %u\n", superbloque.s_inodes_count);
+            printf("inodos libres = %u\n", superbloque.s_free_inodes_count);
+            printf("bloques particion = %u\n", superbloque.s_blocks_count);
+            printf("bloques libres = %u\n", superbloque.s_free_blocks_count);
+            printf("primer bloque de datos = %u\n", superbloque.s_first_data_block);
 		} else if (strcmp(token, "bytemaps") == 0) {
 			// Comando bytemaps
 			printf("inodos:");
 			for (int i = 0; i < superbloque.s_inodes_count; i++) {
-				printf(" %hhu", bytemaps.bmap_inodos[i]);
+				printf(" %d", bytemaps.bmap_inodos[i]);
 			}
 			printf("\n");
 
 			printf("bloques [0-25]:");
 			for (int i = 0; i < 26; i++) {
-				printf(" %hhu", bytemaps.bmap_bloques[i]);
+				printf(" %d", bytemaps.bmap_bloques[i]);
 			}
 			printf("\n");
 		} else if (strcmp(token, "dir") == 0) {
             // Comando dir
             listarDirectorioCompleto();
         } else if (strcmp(token, "rename") == 0) {
-			
             char *nombreActual = strtok(NULL, " ");
             char *nuevoNombre = strtok(NULL, "");  // Captura toda la línea después de "rename nombreActual "
-           
-		   if (nombreActual != NULL && nuevoNombre != NULL) {
+            if (nombreActual != NULL && nuevoNombre != NULL) {
                 renameFichero(nombreActual, nuevoNombre);
             } else {
                 printf("Error: El comando rename requiere un nombre de archivo actual y un nuevo nombre.\n");
             }
+        } else if (strcmp(token, "imprimir") == 0) {
+            // Comando imprimir
+            token = strtok(NULL, " ");
+            if (token != NULL) {
+                // Implementa la lógica para imprimir el fichero como texto
+            } else {
+                printf("Error: El comando imprimir requiere un nombre de archivo.\n");
+            }
+        } else if (strcmp(token, "remove") == 0) {
+            // Comando remove
+            token = strtok(NULL, " ");
+            if (token != NULL) {
+                // Implementa la lógica para eliminar el fichero
+            } else {
+                printf("Error: El comando remove requiere un nombre de archivo.\n");
+            }
+        } else if (strcmp(token, "copy") == 0) {
+            // Comando copy
+            char *ficheroOrigen = strtok(NULL, " ");
+            char *ficheroDestino = strtok(NULL, " ");
+            if (ficheroOrigen != NULL && ficheroDestino != NULL) {
+                // Implementa la lógica para copiar el fichero
+            } else {
+                printf("Error: El comando copy requiere un nombre de archivo origen y un nombre de archivo destino.\n");
+            }
+        } else if (strcmp(token, "salir") == 0) {
+            exit(EXIT_SUCCESS);
+        } else {
+            printf("Comando no reconocido: %s\n", comando);
         }
+    }
 }
 
 void listarDirectorio(){
