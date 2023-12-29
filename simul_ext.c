@@ -35,7 +35,17 @@ void listarDirectorio();
 void mostrarContenidoFichero(char *Fichero);
 
 int main() {
-	
+	cargarDatos();
+
+    while (1) {
+        mostrarPrompt();
+
+        char comando[50];
+        fgets(comando, sizeof(comando), stdin);
+        comando[strcspn(comando, "\n")] = 0;
+
+        procesarComando(comando);
+    }
 	
 	return 0;
 }
