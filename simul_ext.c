@@ -57,6 +57,8 @@ void cargarDatos(){
         perror("Error al abrir el archivo particion.bin");
         exit(EXIT_FAILURE);
     }
+	
+	    fclose(particion);
 }
 
 void mostrarPrompt(){
