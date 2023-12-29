@@ -105,7 +105,10 @@ void procesarComando(char *comando){
 				printf(" %hhu", bytemaps.bmap_bloques[i]);
 			}
 			printf("\n");
-		}
+		} else if (strcmp(token, "dir") == 0) {
+            // Comando dir
+            listarDirectorioCompleto();
+        }
 }
 
 void listarDirectorio(){
