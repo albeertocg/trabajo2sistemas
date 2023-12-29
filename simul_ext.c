@@ -92,7 +92,20 @@ void procesarComando(char *comando){
 			printf("bloques particion = %u\n", superbloque.s_blocks_count);
 			printf("bloques libres = %u\n", superbloque.s_free_blocks_count);
 			printf("primer bloque de datos = %u\n", superbloque.s_first_data_block);
-	}
+		} else if (strcmp(token, "bytemaps") == 0) {
+			// Comando bytemaps
+			printf("inodos:");
+			for (int i = 0; i < superbloque.s_inodes_count; i++) {
+				printf(" %hhu", bytemaps.bmap_inodos[i]);
+			}
+			printf("\n");
+
+			printf("bloques [0-25]:");
+			for (int i = 0; i < 26; i++) {
+				printf(" %hhu", bytemaps.bmap_bloques[i]);
+			}
+			printf("\n");
+		}
 }
 
 void listarDirectorio(){
