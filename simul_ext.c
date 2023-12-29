@@ -181,7 +181,45 @@ void listarDirectorio(){
 }
 
 void mostrarContenidoFichero(char *Fichero){
-	
+	int i, encontrado = 0;
+
+    for (i = 0; i < MAX_BLOQUES_PARTICION; i++) {
+        if (strcmp(directorio[i].dir_nfich, Fichero) == 0) {
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if (encontrado) {
+        printf("Contenido de %s:\n", Fichero);
+
+        for (int j = 0; j < MAX_NUMS_BLOQUE_INODO; j++) {
+            if (inodos[i].i_nbloque[j] != 0xFFFF) {
+                // Aquí puedes leer y mostrar el contenido del bloque de datos
+                // utilizando la posición almacenada en i_nbloque[j]
+                // Puedes usar fseek para ir al bloque correspondiente y leerlo
+
+                FILE *particion = fopen(PARTICION_FILE, "rb");
+                if (particion == NULL) {
+                    perror("Error al abrir el archivo particion.bin");
+                    exit(EXIT_FAILURE);
+                }
+
+                int offset = inodos[i].i_nbloque[j] * SIZE_BLOQUE;
+                fseek(particion, offset, SEEK_SET);
+
+                char buffer[SIZE_BLOQUE];
+                fread(buffer, SIZE_BLOQUE, 1, particion);
+
+                printf("%s", buffer);
+
+                fclose(particion);
+            }
+        }
+        printf("\n");
+    } else {
+        printf("El archivo %s no se encuentra en el directorio.\n", Fichero);
+    }
 }
 
 void renameFichero(char *nombreActual, char *nuevoNombre) {
