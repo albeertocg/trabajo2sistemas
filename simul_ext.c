@@ -76,7 +76,7 @@ void cargarDatos(){
 }
 
 void mostrarPrompt(){
-	
+		printf(">> ");
 }
 
 void procesarComando(char *comando){
