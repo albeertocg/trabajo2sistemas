@@ -110,6 +110,16 @@ void procesarComando(char *comando){
 		} else if (strcmp(token, "dir") == 0) {
             // Comando dir
             listarDirectorioCompleto();
+        } else if (strcmp(token, "rename") == 0) {
+			
+            char *nombreActual = strtok(NULL, " ");
+            char *nuevoNombre = strtok(NULL, "");  // Captura toda la línea después de "rename nombreActual "
+           
+		   if (nombreActual != NULL && nuevoNombre != NULL) {
+                renameFichero(nombreActual, nuevoNombre);
+            } else {
+                printf("Error: El comando rename requiere un nombre de archivo actual y un nuevo nombre.\n");
+            }
         }
 }
 
