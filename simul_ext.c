@@ -39,6 +39,11 @@ typedef struct {
     unsigned short int dir_inodo;
 } EXT_ENTRADA_DIR;
 
+EXT_SIMPLE_SUPERBLOCK superbloque;
+EXT_BYTE_MAPS bytemaps;
+EXT_SIMPLE_INODE inodos[MAX_INODOS];
+EXT_ENTRADA_DIR directorio[MAX_BLOQUES_PARTICION];
+
 void cargarDatos();
 void mostrarPrompt();
 void procesarComando(char *comando);
@@ -67,7 +72,7 @@ void cargarDatos(){
 	FILE *particion = fopen(PARTICION_FILE, "rb");
 
     if (particion == NULL) {
-        perror("Error al abrir el archivo particion.bin");
+        printf("Error al abrir el archivo particion.bin");
         exit(EXIT_FAILURE);
     }
 	
@@ -128,7 +133,7 @@ void procesarComando(char *comando) {
 			printf("\n");
 		} else if (strcmp(token, "dir") == 0) {
             // Comando dir
-            listarDirectorioCompleto();
+            listarDirectorio();
         } else if (strcmp(token, "rename") == 0) {
             char *nombreActual = strtok(NULL, " ");
             char *nuevoNombre = strtok(NULL, "");  // Captura toda la línea después de "rename nombreActual "
