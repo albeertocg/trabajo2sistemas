@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define PARTICION_FILE "particion.bin"
+#define NUM_INODOS_RESERVED 2
+#define NUM_PRIMER_BLOQUE_DATOS 4
+#define SIZE_ENTRADA_DIR sizeof(EXT_ENTRADA_DIR)
+
+#define MAX_BLOQUES_PARTICION 100
+#define MAX_INODOS 24
+#define MAX_NUMS_BLOQUE_INODO 7
+#define LEN_NFICH 32
+#define SIZE_BLOQUE 512
+
 typedef struct {
     unsigned int s_inodes_count;
     unsigned int s_blocks_count;
